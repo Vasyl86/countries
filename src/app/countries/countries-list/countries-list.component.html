@@ -1,0 +1,19 @@
+<div class="col-md-10">
+  <div class="row">
+    <div *ngFor="let country of countriesList" class="col-md-2">
+      <div class="card">
+        <img class="card-img-top" alt="Bootstrap Thumbnail First" style="height: 120px" src="{{country.flag}}">
+        <div class="card-block">
+          <h5 class="card-title">
+            {{country.name}}
+          </h5>
+          <p class="card-text">
+            {{country.region}}
+          </p>
+        
+        </div>
+      </div>
+    </div>
+  
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="col-md-2">
+  <p *ngFor="let line of dropdownList"> {{line}}:
+    <select class="dropdown" name="line" #select (change)="selectByDrop(line, select.value)">
+      <option *ngFor="let drop of dropdownValues[line]" value="{{drop}}" >{{drop}}</option>
+    </select>
+  </p>
+</div>
