@@ -1,7 +1,8 @@
-<div class="col-md-2">
+<div>
   <p *ngFor="let line of dropdownList"> {{line}}:
     <select class="dropdown" name="line" #select (change)="selectByDrop(line, select.value)">
       <option *ngFor="let drop of dropdownValues[line]" value="{{drop}}" >{{drop}}</option>
     </select>
+    <!--<b (click)="clearFilter(line)" style="cursor: pointer; color: red;">X</b>-->
   </p>
 </div>

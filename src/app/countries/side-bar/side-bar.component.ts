@@ -9,7 +9,7 @@ import {CountriesService} from '../../countries.service';
 export class SideBarComponent implements OnInit {
   // @Input() filteredCountriesList: Array<any>;
 
-  dropdownList = ['region', 'subregion'];
+  dropdownList = ['region', 'subregion', 'borders', 'timezones'];
   dropdownValues = {};
   dropdownSelectedValues = {};
 
@@ -18,18 +18,33 @@ export class SideBarComponent implements OnInit {
   ngOnInit() {
     this.countriesService.bSubject.subscribe(data => {
       for (let i = 0; i < this.dropdownList.length; i++) {
-        this.dropdownValues[this.dropdownList[i]] = data.reduce( (previousValue, currentValue, index, array) => {
-            if (previousValue.indexOf(currentValue[this.dropdownList[i]]) === -1) {
-              previousValue.push(currentValue[this.dropdownList[i]]);
-            }
-            return previousValue;
-          }, []);
-        }
+        this.dropdownValues[this.dropdownList[i]] = this.prepareValues(data, this.dropdownList[i]).sort();
+        this.dropdownValues[this.dropdownList[i]].unshift('All');
+      }
     });
   }
   selectByDrop(type: string, value: string) {
     console.log(type, value);
+    this.dropdownSelectedValues[type] = value;
+    if (value === 'All') {
+      delete this.dropdownSelectedValues[type];
+    }
     this.countriesService.filterCountries(this.dropdownSelectedValues);
   }
-
+  prepareValues(data: Array, list: string) {
+    return data.reduce( (previousValue, currentValue, index, array) => {
+      if (!Array.isArray(currentValue[list])) {
+        if (previousValue.indexOf(currentValue[list]) === -1) {
+          previousValue.push(currentValue[list]);
+        }
+      } else {
+        for (let i = 0; i < currentValue[list].length; i++){
+          if (previousValue.indexOf(currentValue[list][i]) === -1) {
+            previousValue.push(currentValue[list][i]);
+          }
+        }
+      }
+      return previousValue;
+    }, []);
+  }
 }

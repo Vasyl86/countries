@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CountriesService} from "../../countries.service";
 
 @Component({
   selector: 'app-status-bar',
@@ -7,11 +8,14 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class StatusBarComponent implements OnInit {
   @Input() all: number;
-  @Input() selected: number;
+  selected: number;
 
-  constructor() { }
+  constructor(private countriesService: CountriesService) { }
 
   ngOnInit() {
+    this.countriesService.bSubject.subscribe(data => {
+      this.selected = data.length;
+    });
   }
 
 }

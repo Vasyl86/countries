@@ -1,7 +1,6 @@
-<div class="col-md-10">
   <div class="row">
-    <div *ngFor="let country of countriesList" class="col-md-2">
-      <div class="card">
+    <span *ngFor="let country of countriesList" class="col-md-2" routerLink="/country/{{country.name}}">
+      <span class="card" style="display: inline-block">
         <img class="card-img-top" alt="Bootstrap Thumbnail First" style="height: 120px" src="{{country.flag}}">
         <div class="card-block">
           <h5 class="card-title">
@@ -12,8 +11,6 @@
           </p>
         
         </div>
-      </div>
-    </div>
-  
+      </span>
+    </span>
   </div>
-</div>

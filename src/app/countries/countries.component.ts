@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {CountriesService} from '../countries.service';
 
 @Component({
   selector: 'app-countries',
@@ -6,10 +7,14 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./countries.component.css', '../bootstrap.css']
 })
 export class CountriesComponent implements OnInit {
-  selected = 0;
+  // selected = 0;
   all = 0;
 
-  constructor() { }
-  ngOnInit() { }
+  constructor(private countriesService: CountriesService) { }
+  ngOnInit() {
+    this.countriesService.bSubjectAll.subscribe(data => {
+      this.all = data.length;
+    });
+  }
 
 }
